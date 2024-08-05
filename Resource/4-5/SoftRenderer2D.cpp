@@ -4,24 +4,24 @@
 #include <random>
 using namespace CK::DD;
 
-// °İÀÚ¸¦ ±×¸®´Â ÇÔ¼ö
+// ê²©ìë¥¼ ê·¸ë¦¬ëŠ” í•¨ìˆ˜
 void SoftRenderer::DrawGizmo2D()
 {
 	auto& r = GetRenderer();
 	const auto& g = Get2DGameEngine();
 
-	// ±×¸®µå »ö»ó
+	// ê·¸ë¦¬ë“œ ìƒ‰ìƒ
 	LinearColor gridColor(LinearColor(0.8f, 0.8f, 0.8f, 0.3f));
 
-	// ºäÀÇ ¿µ¿ª °è»ê
+	// ë·°ì˜ ì˜ì—­ ê³„ì‚°
 	Vector2 viewPos = g.GetMainCamera().GetTransform().GetPosition();
 	Vector2 extent = Vector2(_ScreenSize.X * 0.5f, _ScreenSize.Y * 0.5f);
 
-	// ÁÂÃø ÇÏ´Ü¿¡¼­ºÎÅÍ °İÀÚ ±×¸®±â
+	// ì¢Œì¸¡ í•˜ë‹¨ì—ì„œë¶€í„° ê²©ì ê·¸ë¦¬ê¸°
 	int xGridCount = _ScreenSize.X / _Grid2DUnit;
 	int yGridCount = _ScreenSize.Y / _Grid2DUnit;
 
-	// ±×¸®µå°¡ ½ÃÀÛµÇ´Â ÁÂÇÏ´Ü ÁÂÇ¥ °ª °è»ê
+	// ê·¸ë¦¬ë“œê°€ ì‹œì‘ë˜ëŠ” ì¢Œí•˜ë‹¨ ì¢Œí‘œ ê°’ ê³„ì‚°
 	Vector2 minPos = viewPos - extent;
 	Vector2 minGridPos = Vector2(ceilf(minPos.X / (float)_Grid2DUnit), ceilf(minPos.Y / (float)_Grid2DUnit)) * (float)_Grid2DUnit;
 	ScreenPoint gridBottomLeft = ScreenPoint::ToScreenCoordinate(_ScreenSize, minGridPos - viewPos);
@@ -41,51 +41,51 @@ void SoftRenderer::DrawGizmo2D()
 	r.DrawFullVerticalLine(worldOrigin.X, LinearColor::Green);
 }
 
-// °ÔÀÓ ¿ÀºêÁ§Æ® ¸ñ·Ï
+// ê²Œì„ ì˜¤ë¸Œì íŠ¸ ëª©ë¡
 
 
-// ÃÖÃÊ ¾À ·ÎµùÀ» ´ã´çÇÏ´Â ÇÔ¼ö
+// ìµœì´ˆ ì”¬ ë¡œë”©ì„ ë‹´ë‹¹í•˜ëŠ” í•¨ìˆ˜
 void SoftRenderer::LoadScene2D()
 {
-	// ÃÖÃÊ ¾À ·Îµù¿¡¼­ »ç¿ëÇÏ´Â ¸ğµâ ³» ÁÖ¿ä ·¹ÆÛ·±½º
+	// ìµœì´ˆ ì”¬ ë¡œë”©ì—ì„œ ì‚¬ìš©í•˜ëŠ” ëª¨ë“ˆ ë‚´ ì£¼ìš” ë ˆí¼ëŸ°ìŠ¤
 	auto& g = Get2DGameEngine();
 
 }
 
-// °ÔÀÓ ·ÎÁ÷°ú ·»´õ¸µ ·ÎÁ÷ÀÌ °øÀ¯ÇÏ´Â º¯¼ö
+// ê²Œì„ ë¡œì§ê³¼ ë Œë”ë§ ë¡œì§ì´ ê³µìœ í•˜ëŠ” ë³€ìˆ˜
 float currentDegree = 0.f;
 
-// °ÔÀÓ ·ÎÁ÷À» ´ã´çÇÏ´Â ÇÔ¼ö
+// ê²Œì„ ë¡œì§ì„ ë‹´ë‹¹í•˜ëŠ” í•¨ìˆ˜
 void SoftRenderer::Update2D(float InDeltaSeconds)
 {
-	// °ÔÀÓ ·ÎÁ÷¿¡¼­ »ç¿ëÇÏ´Â ¸ğµâ ³» ÁÖ¿ä ·¹ÆÛ·±½º
+	// ê²Œì„ ë¡œì§ì—ì„œ ì‚¬ìš©í•˜ëŠ” ëª¨ë“ˆ ë‚´ ì£¼ìš” ë ˆí¼ëŸ°ìŠ¤
 	auto& g = Get2DGameEngine();
 	const InputManager& input = g.GetInputManager();
 
-	// °ÔÀÓ ·ÎÁ÷ÀÇ ·ÎÄÃ º¯¼ö
+	// ê²Œì„ ë¡œì§ì˜ ë¡œì»¬ ë³€ìˆ˜
 	static float rotateSpeed = 180.f;
 
 	float deltaDegree = input.GetAxis(InputAxis::WAxis) * rotateSpeed * InDeltaSeconds;
 
-	// ¹°Ã¼ÀÇ ÃÖÁ¾ »óÅÂ ¼³Á¤
+	// ë¬¼ì²´ì˜ ìµœì¢… ìƒíƒœ ì„¤ì •
 	currentDegree += deltaDegree;
 }
 
-// ·»´õ¸µ ·ÎÁ÷À» ´ã´çÇÏ´Â ÇÔ¼ö
+// ë Œë”ë§ ë¡œì§ì„ ë‹´ë‹¹í•˜ëŠ” í•¨ìˆ˜
 void SoftRenderer::Render2D()
 {
-	// ·»´õ¸µ ·ÎÁ÷¿¡¼­ »ç¿ëÇÏ´Â ¸ğµâ ³» ÁÖ¿ä ·¹ÆÛ·±½º
+	// ë Œë”ë§ ë¡œì§ì—ì„œ ì‚¬ìš©í•˜ëŠ” ëª¨ë“ˆ ë‚´ ì£¼ìš” ë ˆí¼ëŸ°ìŠ¤
 	auto& r = GetRenderer();
 	const auto& g = Get2DGameEngine();
 
-	// ¹è°æ¿¡ °İÀÚ ±×¸®±â
+	// ë°°ê²½ì— ê²©ì ê·¸ë¦¬ê¸°
 	DrawGizmo2D();
 
-	// ·»´õ¸µ ·ÎÁ÷ÀÇ ·ÎÄÃ º¯¼ö
-	static float halfSize = 100.f; // Á¤»ç°¢ÇüÀÇ Àı¹İ Å©±â¸¦ º¯¼ö halfSize¿¡ ÁöÁ¤
-	static std::vector<Vector2> squares; // Á¤»ç°¢ÇüÀ» ±¸¼ºÇÏ´Â º¤ÅÍ¸¦ ´ãÀ» ¼ö ÀÖ´Â ÄÁÅ×ÀÌ³Ê º¯¼ö ¼±¾ğ
+	// ë Œë”ë§ ë¡œì§ì˜ ë¡œì»¬ ë³€ìˆ˜
+	static float halfSize = 100.f; // ì •ì‚¬ê°í˜•ì˜ ì ˆë°˜ í¬ê¸°ë¥¼ ë³€ìˆ˜ halfSizeì— ì§€ì •
+	static std::vector<Vector2> squares; // ì •ì‚¬ê°í˜•ì„ êµ¬ì„±í•˜ëŠ” ë²¡í„°ë¥¼ ë‹´ì„ ìˆ˜ ìˆëŠ” ì»¨í…Œì´ë„ˆ ë³€ìˆ˜ ì„ ì–¸
 
-	// »ç°¢ÇüÀ» ±¸¼ºÇÏ´Â Á¡À» »ı¼º
+	// ì‚¬ê°í˜•ì„ êµ¬ì„±í•˜ëŠ” ì ì„ ìƒì„±
 	if (squares.empty())
 	{
 		for (float x = -halfSize; x <= halfSize; x += 0.25f)
@@ -97,48 +97,48 @@ void SoftRenderer::Render2D()
 		}
 	}
 
-	// °¢µµ¿¡ ÇØ´çÇÏ´Â sin°ú cosÇÔ¼ö ¾ò±â
+	// ê°ë„ì— í•´ë‹¹í•˜ëŠ” sinê³¼ cosí•¨ìˆ˜ ì–»ê¸°
 	float sin = 0.f, cos = 0.f;
 	Math::GetSinCos(sin, cos, currentDegree);
 
-	// ÇöÀç È­¸éÀÇ Å©±â·ÎºÎÅÍ ±æÀÌ¸¦ ºñ±³ÇÒ ±âÁØ¾ç Á¤ÇÏ±â
-	static float maxLength = Vector2(_ScreenSize.X, _ScreenSize.Y).Size() * 0.5f; // ±æÀÌ¿¡ µû¶ó È¸Àü·®À» ´Ù¸£°Ô ºÎ¿©ÇÏ±â À§ÇØ ±âÁØ °ªÀ» Á¤ÇÑ´Ù. È­¸é ´ë°¢¼± Å©±âÀÇ Àı¹İÀ» ±âÁØ °ªÀ¸·Î Àâ°í º¯¼ö maxLength¿¡ ÀúÀå
+	// í˜„ì¬ í™”ë©´ì˜ í¬ê¸°ë¡œë¶€í„° ê¸¸ì´ë¥¼ ë¹„êµí•  ê¸°ì¤€ì–‘ ì •í•˜ê¸°
+	static float maxLength = Vector2(_ScreenSize.X, _ScreenSize.Y).Size() * 0.5f; // ê¸¸ì´ì— ë”°ë¼ íšŒì „ëŸ‰ì„ ë‹¤ë¥´ê²Œ ë¶€ì—¬í•˜ê¸° ìœ„í•´ ê¸°ì¤€ ê°’ì„ ì •í•œë‹¤. í™”ë©´ ëŒ€ê°ì„  í¬ê¸°ì˜ ì ˆë°˜ì„ ê¸°ì¤€ ê°’ìœ¼ë¡œ ì¡ê³  ë³€ìˆ˜ maxLengthì— ì €ì¥
 
-	// »ç°¢Çü ±×¸®±â
+	// ì‚¬ê°í˜• ê·¸ë¦¬ê¸°
 	HSVColor hsv(0.f, 1.f, 0.85f);
 	for (auto const& v : squares)
 	{
-		// ±ØÁÂÇ¥°è·Î º¯°æ
-		Vector2 polarV = v.ToPolarCoordinate(); // »ç°¢ÇüÀ» ±¸¼ºÇÏ´Â º¤ÅÍ °ªÀ» ±ØÁÂÇ¥°è·Î º¯°æ
+		// ê·¹ì¢Œí‘œê³„ë¡œ ë³€ê²½
+		Vector2 polarV = v.ToPolarCoordinate(); // ì‚¬ê°í˜•ì„ êµ¬ì„±í•˜ëŠ” ë²¡í„° ê°’ì„ ê·¹ì¢Œí‘œê³„ë¡œ ë³€ê²½
 
 		if (polarV.Y < 0.f)
 		{
-			polarV.Y += Math::TwoPI; // ±ØÁÂÇ¥°è °¢Àº [-pi, pi]¹üÀ§¸¦ °¡Áø´Ù. ÀÌ¸¦ [0, 2pi]¹üÀ§·Î º¯°æÇÏ±â À§ÇØ 2pi¸¦ ´õÇØÁØ´Ù.
+			polarV.Y += Math::TwoPI; // ê·¹ì¢Œí‘œê³„ ê°ì€ [-pi, pi]ë²”ìœ„ë¥¼ ê°€ì§„ë‹¤. ì´ë¥¼ [0, 2pi]ë²”ìœ„ë¡œ ë³€ê²½í•˜ê¸° ìœ„í•´ 2pië¥¼ ë”í•´ì¤€ë‹¤.
 		}
-		hsv.H = polarV.Y / Math::TwoPI; // ±ØÁÂÇ¥°è °ªÀ» [0, 1]·Î Á¤±ÔÈ­ÇÏ¿© »ö»óÀ» ÁöÁ¤
+		hsv.H = polarV.Y / Math::TwoPI; // ê·¹ì¢Œí‘œê³„ ê°’ì„ [0, 1]ë¡œ ì •ê·œí™”í•˜ì—¬ ìƒ‰ìƒì„ ì§€ì •
 
-		// ±ØÁÂÇ¥°èÀÇ Å©±â Á¤º¸·ÎºÎÅÍ È¸Àü·®À» °áÁ¤ÇÑ´Ù.
+		// ê·¹ì¢Œí‘œê³„ì˜ í¬ê¸° ì •ë³´ë¡œë¶€í„° íšŒì „ëŸ‰ì„ ê²°ì •í•œë‹¤.
 		float ratio = polarV.X / maxLength; 
 		float weight = Math::Lerp(1.f, 5.f, ratio);
 
-		// ±ØÁÂÇ¥°è¸¦ »ç¿ëÇØ È¸ÀüÀ» ºÎ¿©
-		polarV.Y += Math::Deg2Rad(currentDegree) * weight; // È¸Àü·®¿¡ °¡ÁßÄ¡ weight¸¦ °öÇØ ÃÖÁ¾ È¸Àü·®À» °è»êÇØ È¸ÀüÀ» ºÎ¿©ÇÑ´Ù.
+		// ê·¹ì¢Œí‘œê³„ë¥¼ ì‚¬ìš©í•´ íšŒì „ì„ ë¶€ì—¬
+		polarV.Y += Math::Deg2Rad(currentDegree) * weight; // íšŒì „ëŸ‰ì— ê°€ì¤‘ì¹˜ weightë¥¼ ê³±í•´ ìµœì¢… íšŒì „ëŸ‰ì„ ê³„ì‚°í•´ íšŒì „ì„ ë¶€ì—¬í•œë‹¤.
 
-		// ÃÖÁ¾ °ªÀ» µ¥Ä«¸£Æ® ÁÂÇ¥°è·Î º¯È¯ÇÑ´Ù.
+		// ìµœì¢… ê°’ì„ ë°ì¹´ë¥´íŠ¸ ì¢Œí‘œê³„ë¡œ ë³€í™˜í•œë‹¤.
 		Vector2 cartesianV = polarV.ToCartesianCoordinate();
 		r.DrawPoint(cartesianV, hsv.ToLinearColor());
 	}
 
-	// ÇöÀç °¢µµ¸¦ È­¸é¿¡ Ãâ·Â
+	// í˜„ì¬ ê°ë„ë¥¼ í™”ë©´ì— ì¶œë ¥
 	r.PushStatisticText(std::string("Degree : ") + std::to_string(currentDegree));
 }
 
-// ¸Ş½Ã¸¦ ±×¸®´Â ÇÔ¼ö
+// ë©”ì‹œë¥¼ ê·¸ë¦¬ëŠ” í•¨ìˆ˜
 void SoftRenderer::DrawMesh2D(const class DD::Mesh& InMesh, const Matrix3x3& InMatrix, const LinearColor& InColor)
 {
 }
 
-// »ï°¢ÇüÀ» ±×¸®´Â ÇÔ¼ö
+// ì‚¼ê°í˜•ì„ ê·¸ë¦¬ëŠ” í•¨ìˆ˜
 void SoftRenderer::DrawTriangle2D(std::vector<DD::Vertex2D>& InVertices, const LinearColor& InColor, FillMode InFillMode)
 {
 }
