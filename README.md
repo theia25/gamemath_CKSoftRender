@@ -11,3 +11,7 @@
 ## Result 7-2
 ![7-2-ezgif com-optimize](https://github.com/user-attachments/assets/3d6785f1-d7fb-4181-897d-894e5b458603)
 --------------------
+
+## Result 9-1
+![9-1-ezgif com-optimize](https://github.com/user-attachments/assets/b404df09-daf9-4f9c-9777-34bfd1721eb7)
+--------------------
